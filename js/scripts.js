@@ -1,10 +1,11 @@
-function UserChoice (senior, movieSelection, matinee){
-  this.senior = senior;
+function UserChoice (age, movieSelection, matinee, cost){
+  this.age = 0;
   this.movieSelection = movieSelection;
   this.matinee = matinee;
+  this.cost = [" ticket cost is $5.00", " ticket cost is $7.00", " ticket cost is $8.00", " ticket cost is $10.00"];
 }
-UserChoice.prototype.userOutput = function() {
-  return "To watch " + this.movieSelection + " during this time range (" + this.matinee + " ) then your ticket cost is $5";
+UserChoice.prototype.userOutput = function(price) {
+  return this.movieSelection + this.matinee + this.cost[price];
   }
  // else if (this.movieSelection === 2 && this.matinee === 2) {
 
@@ -15,14 +16,14 @@ UserChoice.prototype.userOutput = function() {
 $(document).ready(function (){
   $("#userMovieChoice").submit(function (event){
     event.preventDefault();
-    var age = $("input:radio[name=age]:checked").val();
+    var age = parseInt($("input:radio[name=age]:checked").val());
     var movieSelection = $("input:radio[name=movieSelection]:checked").val();
     var time = $("input:radio[name=time]:checked").val();
 
     var newFinalChoice = new UserChoice(age, movieSelection, time);
     console.log(newFinalChoice);
 
-    $("#output").text(newFinalChoice.userOutput());
+    $("#output").text(newFinalChoice.userOutput(age));
 
   });
 
